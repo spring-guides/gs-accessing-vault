@@ -4,7 +4,7 @@
 :icons: font
 :source-highlighter: prettify
 :project_id: gs-accessing-vault
-This guide walks you through the process of using http://projects.spring.io/spring-vault/[Spring Vault] to build an application that loads secrets from https://www.vaultproject.io/[HashiCorp Vault], a secrets management tool.
+This guide walks you through the process of using https://projects.spring.io/spring-vault/[Spring Vault] to build an application that loads secrets from https://www.vaultproject.io/[HashiCorp Vault], a secrets management tool.
 
 == What you'll build
 
