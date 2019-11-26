@@ -87,7 +87,7 @@ include::complete/src/main/resources/bootstrap.properties[]
 Here you create an Application class with all the components.
 
 `src/main/java/hello/Application.java`
-[source,java]
+[source,java,tabsize=2]
 ----
 include::complete/src/main/java/hello/Application.java[]
 ----

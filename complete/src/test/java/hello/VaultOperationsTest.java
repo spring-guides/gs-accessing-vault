@@ -5,7 +5,7 @@
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- *      http://www.apache.org/licenses/LICENSE-2.0
+ *	  http://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -33,51 +33,51 @@ import org.springframework.vault.support.VaultResponseSupport;
 @SpringBootTest
 public class VaultOperationsTest {
 
-    @Autowired
-    private VaultOperations vaultOperations;
+	@Autowired
+	private VaultOperations vaultOperations;
 
-    @Test
-    public void readShouldRetrieveVaultData() {
+	@Test
+	public void readShouldRetrieveVaultData() {
 
-        VaultResponse response = this.vaultOperations.read("secret/github");
+		VaultResponse response = this.vaultOperations.read("secret/github");
 
-        assertThat(response.getData()).containsEntry("github.oauth2.key", "foobar");
-    }
+		assertThat(response.getData()).containsEntry("github.oauth2.key", "foobar");
+	}
 
-    @Test
-    public void writeShouldStoreVaultData() {
+	@Test
+	public void writeShouldStoreVaultData() {
 
-        Map<String, String> credentials = new HashMap<>();
-        credentials.put("username", "john");
-        credentials.put("password", "doe");
+		Map<String, String> credentials = new HashMap<>();
+		credentials.put("username", "john");
+		credentials.put("password", "doe");
 
-        this.vaultOperations.write("secret/database", credentials);
+		this.vaultOperations.write("secret/database", credentials);
 
-        VaultResponseSupport<Credentials> mappedCredentials = this.vaultOperations.read("secret/database", Credentials.class);
+		VaultResponseSupport<Credentials> mappedCredentials = this.vaultOperations.read("secret/database", Credentials.class);
 
-        assertThat(mappedCredentials.getData().getUsername()).isEqualTo("john");
-        assertThat(mappedCredentials.getData().getPassword()).isEqualTo("doe");
-    }
+		assertThat(mappedCredentials.getData().getUsername()).isEqualTo("john");
+		assertThat(mappedCredentials.getData().getPassword()).isEqualTo("doe");
+	}
 
-    static class Credentials {
+	static class Credentials {
 
-        private String username;
-        private String password;
+		private String username;
+		private String password;
 
-        public String getUsername() {
-            return username;
-        }
+		public String getUsername() {
+			return username;
+		}
 
-        public void setUsername(String username) {
-            this.username = username;
-        }
+		public void setUsername(String username) {
+			this.username = username;
+		}
 
-        public String getPassword() {
-            return password;
-        }
+		public String getPassword() {
+			return password;
+		}
 
-        public void setPassword(String password) {
-            this.password = password;
-        }
-    }
+		public void setPassword(String password) {
+			this.password = password;
+		}
+	}
 }
