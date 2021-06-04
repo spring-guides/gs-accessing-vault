@@ -11,10 +11,26 @@ pipeline {
 	}
 
 	stages {
+		stage('Publish OpenJDK 8 + vault') {
+			when {
+				changeset "ci/Dockerfile"
+			}
+			agent any
+
+			steps {
+				script {
+					def image = docker.build("springci/gs-accessing-vault-openjdk8-with-vault", "ci/")
+					docker.withRegistry('', 'hub.docker.com-springbuildmaster') {
+						image.push()
+					}
+				}
+			}
+		}
+
 		stage("test: baseline (jdk8)") {
 			agent {
 				docker {
-					image 'adoptopenjdk/openjdk8:latest'
+					image 'springci/gs-accessing-vault-openjdk8-with-vault:latest'
 					args '-v $HOME/.m2:/tmp/jenkins-home/.m2'
 				}
 			}
