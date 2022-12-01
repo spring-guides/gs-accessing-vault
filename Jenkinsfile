@@ -11,7 +11,7 @@ pipeline {
 	}
 
 	stages {
-		stage('Publish OpenJDK 17 + vault') {
+		stage('Publish OpenJDK 8 + vault') {
 			when {
 				changeset "ci/Dockerfile"
 			}
