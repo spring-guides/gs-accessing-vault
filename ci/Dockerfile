@@ -5,7 +5,7 @@ RUN apt-get update && apt-get install -y wget unzip
 RUN apt-get clean \
  && rm -rf /var/lib/apt/lists/*
 
-ARG VAULT_VER=0.8.3
+ARG VAULT_VER=1.12.2
 ARG UNAME=linux
 ARG VAULT_ZIP="vault_${VAULT_VER}_${UNAME}_amd64.zip"
 

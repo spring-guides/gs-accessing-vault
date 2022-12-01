@@ -20,16 +20,15 @@ import static org.assertj.core.api.Assertions.assertThat;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.vault.core.VaultOperations;
+import org.springframework.vault.core.VaultKeyValueOperations;
+import org.springframework.vault.core.VaultKeyValueOperationsSupport.KeyValueBackend;
 import org.springframework.vault.support.VaultResponse;
 import org.springframework.vault.support.VaultResponseSupport;
 
-@RunWith(SpringRunner.class)
 @SpringBootTest
 public class VaultOperationsTest {
 
@@ -37,23 +36,24 @@ public class VaultOperationsTest {
 	private VaultOperations vaultOperations;
 
 	@Test
-	public void readShouldRetrieveVaultData() {
+	void readShouldRetrieveVaultData() {
 
-		VaultResponse response = this.vaultOperations.read("secret/github");
+		VaultResponse response = this.vaultOperations.opsForKeyValue("secret", KeyValueBackend.KV_2).get("github");
 
 		assertThat(response.getData()).containsEntry("github.oauth2.key", "foobar");
 	}
 
 	@Test
-	public void writeShouldStoreVaultData() {
+	void writeShouldStoreVaultData() {
 
 		Map<String, String> credentials = new HashMap<>();
 		credentials.put("username", "john");
 		credentials.put("password", "doe");
 
-		this.vaultOperations.write("secret/database", credentials);
+		VaultKeyValueOperations kv = this.vaultOperations.opsForKeyValue("secret", KeyValueBackend.KV_2);
+		kv.put("secret/database", credentials);
 
-		VaultResponseSupport<Credentials> mappedCredentials = this.vaultOperations.read("secret/database", Credentials.class);
+		VaultResponseSupport<Credentials> mappedCredentials = kv.get("secret/database", Credentials.class);
 
 		assertThat(mappedCredentials.getData().getUsername()).isEqualTo("john");
 		assertThat(mappedCredentials.getData().getPassword()).isEqualTo("doe");
