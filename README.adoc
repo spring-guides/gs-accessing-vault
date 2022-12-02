@@ -1,5 +1,5 @@
 :spring_version: current
-:spring_boot_version: 2.7.6
+:spring_boot_version: 3.0.0
 :toc:
 :icons: font
 :source-highlighter: prettify
@@ -13,7 +13,7 @@ You will load secrets stored in Vault and use the transit encryption backend.
 
 == What you'll need
 
-:java_version: 1.8
+:java_version: 17
 include::https://raw.githubusercontent.com/spring-guides/getting-started-macros/main/prereq_editor_jdk_buildtools.adoc[]
 
 include::https://raw.githubusercontent.com/spring-guides/getting-started-macros/main/how_to_complete_this_guide.adoc[]
