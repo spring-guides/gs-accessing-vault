@@ -5,13 +5,13 @@ cd $(dirname $0)
 mkdir -p target
 cd target
 
-/vault server --dev --dev-root-token-id="00000000-0000-0000-0000-000000000000" &
+./vault server --dev --dev-root-token-id="00000000-0000-0000-0000-000000000000" &
 sleep 1
 
 export export VAULT_TOKEN="00000000-0000-0000-0000-000000000000"
 export VAULT_ADDR="http://127.0.0.1:8200"
 
-/vault write secret/github github.oauth2.key=foobar
+./vault kv put secret/github github.oauth2.key=foobar
 cd ..
 
 cd ../complete
