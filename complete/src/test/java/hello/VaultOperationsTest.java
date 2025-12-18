@@ -21,19 +21,39 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.junit.jupiter.api.Test;
+import org.testcontainers.junit.jupiter.Container;
+import org.testcontainers.junit.jupiter.Testcontainers;
+import org.testcontainers.utility.DockerImageName;
+import org.testcontainers.vault.VaultContainer;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.testcontainers.service.connection.ServiceConnection;
+import org.springframework.test.context.DynamicPropertyRegistry;
+import org.springframework.test.context.DynamicPropertySource;
 import org.springframework.vault.core.VaultOperations;
 import org.springframework.vault.core.VaultKeyValueOperations;
 import org.springframework.vault.core.VaultKeyValueOperationsSupport.KeyValueBackend;
 import org.springframework.vault.support.VaultResponse;
 import org.springframework.vault.support.VaultResponseSupport;
 
+@Testcontainers
 @SpringBootTest
 public class VaultOperationsTest {
 
+	@Container
+	static VaultContainer<?> vaultContainer = new VaultContainer<>(DockerImageName.parse("hashicorp/vault:latest"))
+		.withVaultToken("00000000-0000-0000-0000-000000000000")
+		.withInitCommand("kv put secret/github github.oauth2.key=foobar");
+
 	@Autowired
 	private VaultOperations vaultOperations;
+
+	@DynamicPropertySource
+	static void vaultProperties(DynamicPropertyRegistry registry) {
+		registry.add("spring.cloud.vault.uri", vaultContainer::getHttpHostAddress);
+		registry.add("spring.cloud.vault.token", () -> "00000000-0000-0000-0000-000000000000");
+	}
 
 	@Test
 	void readShouldRetrieveVaultData() {
