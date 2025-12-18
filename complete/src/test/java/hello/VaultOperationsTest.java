@@ -41,9 +41,11 @@ import org.springframework.vault.support.VaultResponseSupport;
 @SpringBootTest
 public class VaultOperationsTest {
 
+	static final String VAULT_TOKEN = "00000000-0000-0000-0000-000000000000";
+
 	@Container
 	static VaultContainer<?> vaultContainer = new VaultContainer<>(DockerImageName.parse("hashicorp/vault:latest"))
-		.withVaultToken("00000000-0000-0000-0000-000000000000")
+		.withVaultToken(VAULT_TOKEN)
 		.withInitCommand("kv put secret/github github.oauth2.key=foobar");
 
 	@Autowired
@@ -52,7 +54,7 @@ public class VaultOperationsTest {
 	@DynamicPropertySource
 	static void vaultProperties(DynamicPropertyRegistry registry) {
 		registry.add("spring.cloud.vault.uri", vaultContainer::getHttpHostAddress);
-		registry.add("spring.cloud.vault.token", () -> "00000000-0000-0000-0000-000000000000");
+		registry.add("spring.cloud.vault.token", () -> VAULT_TOKEN);
 	}
 
 	@Test
