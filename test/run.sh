@@ -8,7 +8,7 @@ cd target
 ./vault server --dev --dev-root-token-id="00000000-0000-0000-0000-000000000000" &
 sleep 1
 
-export export VAULT_TOKEN="00000000-0000-0000-0000-000000000000"
+export VAULT_TOKEN="00000000-0000-0000-0000-000000000000"
 export VAULT_ADDR="http://127.0.0.1:8200"
 
 ./vault kv put secret/github github.oauth2.key=foobar
