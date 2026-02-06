@@ -27,6 +27,9 @@ public class Application implements CommandLineRunner {
 		// You usually would not print a secret to stdout
 		VaultResponse response = vaultTemplate
 				.opsForKeyValue("secret", KeyValueBackend.KV_2).get("github");
+		if (response == null) {
+			throw new IllegalStateException("No data found in secret/github");
+		}
 		System.out.println("Value of github.oauth2.key");
 		System.out.println("-------------------------------");
 		System.out.println(response.getData().get("github.oauth2.key"));
