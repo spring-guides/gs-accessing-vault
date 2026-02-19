@@ -5,13 +5,13 @@
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>3.5.10</version>
+		<version>4.0.2</version>
 	</parent>
 	<groupId>com.example</groupId>
 	<artifactId>gs-accessing-vault</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<properties>
-		<spring-cloud.version>2025.0.1</spring-cloud.version>
+		<spring-cloud.version>2025.1.1</spring-cloud.version>
 	</properties>
 	<dependencies>
 		<dependency>
@@ -31,12 +31,12 @@
 		</dependency>
 		<dependency>
 			<groupId>org.testcontainers</groupId>
-			<artifactId>junit-jupiter</artifactId>
+			<artifactId>testcontainers-junit-jupiter</artifactId>
 			<scope>test</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.testcontainers</groupId>
-			<artifactId>vault</artifactId>
+			<artifactId>testcontainers-vault</artifactId>
 			<scope>test</scope>
 		</dependency>
 	</dependencies>
