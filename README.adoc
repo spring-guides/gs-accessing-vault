@@ -98,8 +98,9 @@ mapping and registers a `MyConfiguration` bean.
 include::https://raw.githubusercontent.com/spring-guides/getting-started-macros/main/build_an_executable_jar_mainhead.adoc[]
 include::https://raw.githubusercontent.com/spring-guides/getting-started-macros/main/build_an_executable_jar_with_both.adoc[]
 
-As our `Application` implements `CommandLineRunner`, the `run` method is invoked automatically when boot
-starts. You should see something like this:
+As our `Application` exposes an `ApplicationRunner` bean, it is invoked automatically when Spring Boot starts.
+You should see something like this:
+
 ....
 Value of github.oauth2.key
 -------------------------------
